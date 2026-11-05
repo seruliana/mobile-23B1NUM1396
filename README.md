@@ -40,11 +40,13 @@ Push хийсний дараа GitHub дээрх **Actions** табаас авт
 ### D2. Төслийн бүтэц
 
 1. `lib/main.dart`-д ямар классууд байна? Аль нь StatelessWidget, аль нь StatefulWidget вэ?
-   > …
+   > MyApp нь StatelessWidget. Аппын үндсэн MaterialApp-ийг үүсгэж, гарчиг, өнгөний загвар болон эхний дэлгэцийг тохируулдаг.
+   > MyHomePage нь StatefulWidget. Энэ нь тоолууртай дэлгэцийг төлөөлж, createState()-аар _MyHomePageState объектыг үүсгэдэг.
+   > _MyHomePageState нь State<MyHomePage> класс. Тоолуурын одоогийн утгыг хадгалж, + товч дарахад утгыг нэмдэг. Утгыг setState() дотор өөрчилснөөр Flutter дэлгэцийг дахин зурж, шинэ тоог харуулна.
 2. `pubspec.yaml`-д ямар сангууд байна?
-   > …
+   > dependencies хэсэгт flutter болон cupertino_icons байна. flutter нь MaterialApp, Scaffold, Text зэрэг widget-ийг ашиглах үндсэн сан. cupertino_icons нь iOS загварын дүрснүүдийг өгдөг. dev_dependencies хэсэгт flutter_test болон flutter_lints байна. flutter_test-ээр widget-ийг дэлгэцэд гаргаж, товч дарахад тоолуур өөрчлөгдөж байгаа эсэхийг тестэлж болно. flutter_lints нь dart analyze ажиллуулах үед кодын хэв маяг болон нийтлэг асуудлыг шалгах дүрмүүдийг өгдөг.
 3. `android/` хавтас юунд хэрэгтэй вэ? Та ихэвчлэн аль хавтсанд код бичих вэ?
-   > …
+   > android/ хавтас нь Flutter аппыг Android дээр бүтээж ажиллуулахад хэрэгтэй. Дотор нь build хийх Gradle тохиргоо, Android-д аппын мэдээллийг зарлах AndroidManifest.xml, Flutter дэлгэцийг нээх MainActivity, мөн аппын дүрс зэрэг файлууд бий. ShopLite-ийн дэлгэц, товч, тоолуурын логикийг ихэвчлэн lib/ хавтаст Dart хэлээр бичнэ. Энэ лабораторийн D3 өөрчлөлтүүдийг lib/main.dart дээр хийнэ.
 
 ### D4. Hot reload ба hot restart
 

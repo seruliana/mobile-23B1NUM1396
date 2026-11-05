@@ -18,7 +18,6 @@ String describeStudent(String name, {int? age, String? major}) {
   } else {
     return '$name ($age) — $major';
   }
-  throw UnimplementedError('TODO 1.1');
 }
 
 /// 1.2 Онооноос үсгэн дүн гаргана (switch expression ашигла).
@@ -35,7 +34,6 @@ String letterGrade(int score) {
     >= 60 => 'D',
     _ => 'F',
   };
-  throw UnimplementedError('TODO 1.2');
 }
 
 /// 1.3 Онооны дундаж. Хоосон жагсаалт бол 0.0 буцаана (fold ашигла).
@@ -48,7 +46,6 @@ double average(List<int> scores) {
     return total / scores.length;
   }
 
-  throw UnimplementedError('TODO 1.3');
 }
 
 /// 1.4 [passMark]-аас дээш (тэнцүү орно) оноотой оюутнуудын нэрийг
@@ -61,7 +58,6 @@ List<String> passedStudents(Map<String, int> scores, {int passMark = 60}) {
       .toList()
     ..sort((a, b) => a.compareTo(b));
 
-  throw UnimplementedError('TODO 1.4');
 }
 
 /// 1.5 Дуудах бүрт дараагийн ID-г буцаадаг функц үүсгэнэ (closure).
@@ -76,5 +72,4 @@ int Function() makeIdGenerator({int start = 1}) {
     start++;
     return currentId;
   };
-  throw UnimplementedError('TODO 1.5');
 }

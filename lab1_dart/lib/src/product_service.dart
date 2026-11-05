@@ -5,6 +5,7 @@
 // TODO 5.1: jsonDecode-ийг ашиглахын тулд 'dart:convert'-ийг import хий.
 import 'order_status.dart';
 import 'product.dart';
+import 'dart:convert';
 
 /// dummyjson.com-ийн бүтэцтэй жишээ өгөгдөл.
 const sampleProductsJson = '''
@@ -38,14 +39,30 @@ class ProductService {
   /// [shouldFail] true бол `Exception('Сүлжээний алдаа')` шиднэ.
   Future<List<Product>> fetchProducts() async {
     // TODO 5.1
-    throw UnimplementedError('TODO 5.1');
+    await Future.delayed(delay);
+    if (shouldFail) {
+      throw Exception('Сүлжээний алдаа');
+    }
+    final jsonList = jsonDecode(sampleProductsJson) as List<dynamic>;
+    return jsonList
+        .map((item) => Product.fromJson(item as Map<String, dynamic>))
+        .toList();
   }
 
   /// 5.2 Гарчигт [query] агуулсан барааг хайна (том, жижиг үсэг ялгахгүй).
   /// Хоосон query бол бүх барааг буцаана. fetchProducts()-ийг await хий.
   Future<List<Product>> searchProducts(String query) async {
     // TODO 5.2
-    throw UnimplementedError('TODO 5.2');
+    final products = await fetchProducts();
+    final normalizedQuery = query.trim().toLowerCase();
+
+    if (normalizedQuery.isEmpty) {
+      return products;
+    }
+
+    return products
+        .where((product) => product.title.toLowerCase().contains(normalizedQuery))
+        .toList();
   }
 }
 
@@ -55,7 +72,13 @@ class ProductService {
 /// try / catch ашигла.
 Future<String> loadProductsMessage(ProductService service) async {
   // TODO 5.3
-  throw UnimplementedError('TODO 5.3');
+  try {
+    final products = await service.fetchProducts();
+    return 'Ачааллаа: ${products.length} бараа';
+  } catch (e) {
+    return 'Алдаа: $e';
+  }
+
 }
 
 /// БОНУС B1 — Захиалгын явцыг Stream-ээр дамжуулна.
@@ -68,5 +91,12 @@ Stream<OrderStatus> trackOrder(
   Duration step = const Duration(milliseconds: 200),
 }) async* {
   // TODO B1
-  throw UnimplementedError('TODO B1');
+  OrderStatus? currentStatus = from;
+  while (currentStatus != null) {
+    yield currentStatus;
+    currentStatus = currentStatus.next;
+    if (currentStatus != null) {
+      await Future<void>.delayed(step);
+    }
+  }
 }

@@ -4,7 +4,7 @@
 /// Үнийг `$12.50` хэлбэрээр форматлана.
 extension PriceFormat on double {
   // TODO 2.6: 2 оронтой бутархайтай, урдаа $ тэмдэгтэй текст буцаа.
-  String get asPrice => throw UnimplementedError('TODO 2.6');
+  String get asPrice => '\$${toStringAsFixed(2)}';
 }
 
 class Product {
@@ -38,32 +38,63 @@ class Product {
   /// - Бусад талбар байхгүй (null) бол constructor-ийн анхдагч утгыг ав.
   factory Product.fromJson(Map<String, dynamic> json) {
     // TODO 2.1
-    throw UnimplementedError('TODO 2.1');
+    return Product(
+      id: json['id'] as int,
+      title: json['title'] as String,
+      description: json['description'] as String? ?? '',
+      price: (json['price'] as num).toDouble(),
+      discountPercentage: (json['discountPercentage'] as num?)?.toDouble() ?? 0,
+      rating: (json['rating'] as num?)?.toDouble() ?? 0,
+      stock: json['stock'] as int? ?? 0,
+      category: json['category'] as String? ?? '',
+      thumbnail: json['thumbnail'] as String? ?? '',
+    );
   }
 
   /// 2.2 Product-ийг JSON Map болгоно (fromJson-ийн эсрэг үйлдэл).
   Map<String, dynamic> toJson() {
     // TODO 2.2
-    throw UnimplementedError('TODO 2.2');
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'price': price,
+      'discountPercentage': discountPercentage,
+      'rating': rating,
+      'stock': stock,
+      'category': category,
+      'thumbnail': thumbnail,
+    };
   }
 
   /// 2.3 Хөнгөлөлт хассан үнэ, 2 оронтой бутархай хүртэл тоймлосон.
   /// Жишээ: price 100, discountPercentage 12.5 → 87.5
   double get discountedPrice {
     // TODO 2.3: (x * 100).round() / 100 гэж тоймлож болно.
-    throw UnimplementedError('TODO 2.3');
+    final discounted = price * (1 - discountPercentage / 100);
+    return (discounted * 100).round() / 100;
   }
 
   /// 2.4 Нөөцөд байгаа эсэх.
   bool get inStock {
     // TODO 2.4
-    throw UnimplementedError('TODO 2.4');
+    return stock > 0;
   }
 
   /// 2.5 Зарим талбарыг өөрчилсөн ШИНЭ хуулбар буцаана (immutable загвар).
   Product copyWith({double? price, int? stock}) {
     // TODO 2.5
-    throw UnimplementedError('TODO 2.5');
+    return Product(
+      id: id,
+      title: title,
+      description: description,
+      price: price ?? this.price,
+      discountPercentage: discountPercentage,
+      rating: rating,
+      stock: stock ?? this.stock,
+      category: category,
+      thumbnail: thumbnail,
+    );
   }
 
   // Хоёр Product-ийн id ижил бол тэнцүү гэж үзнэ.
