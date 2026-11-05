@@ -34,8 +34,8 @@ Push хийсний дараа GitHub дээрх **Actions** табаас авт
 
 ### lab1_dart
 
-- `dart test test/lab1_test.dart`: … / 25
-- Бонус B1 (`dart test test/bonus_test.dart`): хийсэн / хийгээгүй
+- `dart test test/lab1_test.dart`: 26 / 26
+- Бонус B1 (`dart test test/bonus_test.dart`): хийсэн
 
 ### D2. Төслийн бүтэц
 
