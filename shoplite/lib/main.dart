@@ -50,6 +50,13 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text('ShopLite - Сагс'),
         actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Badge(
+              label: Text('$_count'),
+              child: const Icon(Icons.shopping_cart_outlined),
+            ),
+          ),
           IconButton(
             onPressed: _reset,
             icon: const Icon(Icons.refresh),
