@@ -6,18 +6,22 @@ void main() {
   testWidgets('Барааг нэмээд, хасаад 0 болгоно', (tester) async {
     await tester.pumpWidget(const ShopLiteApp());
 
+    final counter = find.byKey(const Key('cart-count'));
     final addButton = find.widgetWithIcon(FloatingActionButton, Icons.add);
-    final removeButton = find.widgetWithIcon(FloatingActionButton, Icons.remove);
+    final removeButton = find.widgetWithIcon(
+      FloatingActionButton,
+      Icons.remove,
+    );
 
-    expect(find.text('0'), findsOneWidget);
+    expect(tester.widget<Text>(counter).data, '0');
 
     await tester.tap(addButton);
     await tester.pump();
-    expect(find.text('1'), findsOneWidget);
+    expect(tester.widget<Text>(counter).data, '1');
 
     await tester.tap(removeButton);
     await tester.pump();
-    expect(find.text('0'), findsOneWidget);
+    expect(tester.widget<Text>(counter).data, '0');
     expect(tester.widget<FloatingActionButton>(removeButton).onPressed, isNull);
   });
 
@@ -26,6 +30,7 @@ void main() {
   ) async {
     await tester.pumpWidget(const ShopLiteApp());
 
+    final counter = find.byKey(const Key('cart-count'));
     final addButton = find.widgetWithIcon(FloatingActionButton, Icons.add);
     final limitMessage = find.text(
       'Нэг удаад 10-аас олон бараа захиалах боломжгүй',
@@ -36,14 +41,14 @@ void main() {
       await tester.pump();
     }
 
-    expect(find.text('10'), findsOneWidget);
+    expect(tester.widget<Text>(counter).data, '10');
     expect(limitMessage, findsOneWidget);
     expect(tester.widget<FloatingActionButton>(addButton).onPressed, isNull);
 
     await tester.tap(find.byIcon(Icons.refresh));
     await tester.pump();
 
-    expect(find.text('0'), findsOneWidget);
+    expect(tester.widget<Text>(counter).data, '0');
     expect(limitMessage, findsNothing);
     expect(tester.widget<FloatingActionButton>(addButton).onPressed, isNotNull);
   });
